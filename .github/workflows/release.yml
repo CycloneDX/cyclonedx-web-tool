@@ -72,3 +72,16 @@ jobs:
           asset_path: CycloneDX.WebTools.tar.gz
           asset_name: CycloneDX.WebTools.${{ steps.package_release.outputs.version }}.tar.gz
           asset_content_type: application/gzip
+      
+      - name: Update GitHub pages
+        run: |
+          git fetch origin gh-pages:gh-pages
+          git config --local user.email "$(git show --format="%aN" | head -n 1)"
+          git config --local user.name  "$(git show --format="%aE" | head -n 1)"
+          git add .
+          git stash
+          git checkout gh-pages
+          cp -rv ./gh-pages/wwwroot/* ./docs
+          git add docs
+          git commit -m "Update GitHub pages" || true
+          git push https://${{ github.actor }}:${{ github.token }}@github.com/${{ github.repository }}.git HEAD:gh-pages
