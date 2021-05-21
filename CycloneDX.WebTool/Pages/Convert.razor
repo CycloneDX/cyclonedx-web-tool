@@ -1,0 +1,164 @@
+@page "/convert"
+@using System.IO
+@using System.Text
+@using CycloneDX.Models
+@using CycloneDX.Xml
+@using CycloneDX.Json
+
+@inject IJSRuntime _jsRuntime;
+
+<h1>Convert</h1>
+
+<p>Convert between different serialization formats and versions</p>
+
+<form>
+    <label>
+        Input File
+        <InputFile id="inputFile" OnChange="@LoadInputFile"></InputFile>
+    </label>
+    
+    <label>
+        Input Format
+        <select id="inputFormat" @bind="_inputFormat">
+            <option value="autodetect" selected="selected">Autodetect</option>
+            <option value="json">JSON</option>
+            <option value="xml">XML</option>
+        </select>
+    </label>
+    
+    <label>
+        Output Format
+        <select id="outputFormat" @bind="_outputFormat">
+            <option value="json" selected="selected">JSON</option>
+            <option value="xml">XML</option>
+        </select>
+    </label>
+    
+    <label>
+        Output Format
+        <select id="outputVersion" @bind="_outputVersion">
+            <option value="v1.3" selected="selected">v1.3</option>
+            <option value="v1.2">v1.2</option>
+            <option value="v1.1">v1.1</option>
+            <option value="v1.0">v1.0</option>
+        </select>
+    </label>
+    
+    <button id="convert" type="button" @onclick="@ConvertBOM" hidden="@(_inputFileContents == null)">Convert</button>
+</form>
+
+@code {
+    private string _inputFileContents;
+    private string _userInputFilename;
+    private string _inputFormat = "autodetect";
+    private string _outputFormat = "json";
+    private string _outputVersion = "v1.3";
+    private string _outputBomUri = "";
+    private string _outputBomFilename = "";
+
+    private async Task Alert(string message)
+    {
+        await _jsRuntime.InvokeVoidAsync("alert", message);
+    }
+
+    private async Task LoadInputFile(InputFileChangeEventArgs e)
+    {
+        if (e.FileCount == 1)
+        {
+            using (var sr = new StreamReader(e.File.OpenReadStream()))
+            {
+                _inputFileContents = await sr.ReadToEndAsync();
+            }
+            _userInputFilename = e.File.Name;
+        }
+        else
+        {
+            _inputFileContents = null;
+            _userInputFilename = null;
+        }
+    }
+
+    private async Task ConvertBOM()
+    {
+        Models.v1_3.Bom bom;
+        if (_inputFormat == "json" || _inputFormat == "autodetect" && _userInputFilename.EndsWith(".json"))
+        {
+            try
+            {
+                bom = Json.Deserializer.Deserialize(_inputFileContents);
+            }
+            catch (Exception e)
+            {
+                await Alert("Error deserializing BOM: " + e.Message);
+                return;
+            }
+        }
+        else if (_inputFormat == "xml" || _inputFormat == "autodetect" && _userInputFilename.EndsWith(".xml"))
+        {
+            try
+            {
+                bom = Xml.Deserializer.Deserialize(_inputFileContents);
+            }
+            catch (Exception e)
+            {
+                await Alert("Error deserializing BOM: " + e.Message);
+                return;
+            }
+        }
+        else
+        {
+            await Alert("Unable to auto-detect input format. Please specify the format.");
+            return;
+        }
+
+        string output;
+        
+        if (_outputFormat == "json")
+        {
+            if (_outputVersion == "v1.2")
+            {
+                var bom12 = new Models.v1_2.Bom(bom);
+                output = Json.Serializer.Serialize(bom12);
+            }
+            else if (_outputVersion == "v1.1" || _outputVersion == "v1.0")
+            {
+                await Alert("Invalid version specified for JSON output. JSON output is only supported for versions >= 1.2");
+                return;
+            }
+            else
+            {
+                output = Json.Serializer.Serialize(bom);
+            }
+        }
+        else
+        {
+            if (_outputVersion == "v1.2")
+            {
+                var bom12 = new Models.v1_2.Bom(bom);
+                output = Xml.Serializer.Serialize(bom12);
+            }
+            else if (_outputVersion == "v1.1")
+            {
+                var bom12 = new Models.v1_2.Bom(bom);
+                var bom11 = new Models.v1_1.Bom(bom12);
+                output = Xml.Serializer.Serialize(bom11);
+            }
+            else if (_outputVersion == "v1.0")
+            {
+                var bom12 = new Models.v1_2.Bom(bom);
+                var bom11 = new Models.v1_1.Bom(bom12);
+                var bom10 = new Models.v1_0.Bom(bom11);
+                output = Xml.Serializer.Serialize(bom10);
+            }
+            else
+            {
+                output = Xml.Serializer.Serialize(bom);
+            }
+        }
+        
+        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(output);
+        var outputBom64 = System.Convert.ToBase64String(plainTextBytes);
+        
+        await _jsRuntime.InvokeVoidAsync("cdxFileDownload", _userInputFilename, outputBom64);
+    }
+}
