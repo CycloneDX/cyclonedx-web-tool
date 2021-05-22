@@ -65,7 +65,7 @@
       "url": "manifest.json"
     },
     {
-      "hash": "sha256-buEXyvbPvVT9VmUQcrvyZQUXYCHcud5HlytKMPXFJyY=",
+      "hash": "sha256-m\/71kUkyMiAp5A07GhIgtSE+ER6RA98RpGLCnXuy4E4=",
       "url": "_framework\/CycloneDX.WebTool.dll"
     },
     {
@@ -885,7 +885,7 @@
       "url": "CycloneDX.WebTool.styles.css"
     },
     {
-      "hash": "sha256-N3JxOkABSxwogyP+9+Pr3ty5IgZlQW4SUugY4R9nJ20=",
+      "hash": "sha256-\/L\/Hzp59gd3ADC5NAf8kgh0ZFid2\/V9+LUv3MQpUVXo=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -893,5 +893,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "y8HEearv"
+  "version": "2rQByenv"
 };

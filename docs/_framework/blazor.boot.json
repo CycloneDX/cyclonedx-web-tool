@@ -7,7 +7,7 @@
   "linkerEnabled": false,
   "resources": {
     "assembly": {
-      "CycloneDX.WebTool.dll": "sha256-buEXyvbPvVT9VmUQcrvyZQUXYCHcud5HlytKMPXFJyY=",
+      "CycloneDX.WebTool.dll": "sha256-m\/71kUkyMiAp5A07GhIgtSE+ER6RA98RpGLCnXuy4E4=",
       "Microsoft.CSharp.dll": "sha256-8nKI+prFZGoXjtLAykW9nDisJwjBUBue3+jqE7+OY3M=",
       "Microsoft.VisualBasic.Core.dll": "sha256-UPRoOttoNgkJcaTuG8HaKvhZKRLk4EqpwZAGNiGiSr8=",
       "Microsoft.VisualBasic.dll": "sha256-GOyPmrwWXTCSrgtmfXF88C40E4DeLWHFAf6M1avnnro=",
