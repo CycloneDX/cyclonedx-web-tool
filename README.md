@@ -9,12 +9,11 @@
 
 A web based tool for working with CycloneDX BOMs.
 
-This tool is currently in preview, with limited functionality.
+Supported functionality:
 
-Supported funcationality:
-
-- Conversion between different versions and formats of CycloneDX BOMs
-- Validation of CycloneDX BOMs
+- Converting between different versions and formats
+- Validation
+- Merging multiple BOMs into a single BOM
 
 # BOM data privacy
 
