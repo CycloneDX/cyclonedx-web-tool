@@ -10,3 +10,41 @@
 A web based tool for working with CycloneDX BOMs.
 
 This tool is currently in preview, with limited functionality.
+
+Supported funcationality:
+
+- Conversion between different versions and formats of CycloneDX BOMs
+- Validation of CycloneDX BOMs
+
+# BOM data privacy
+
+The web tool is built as a "static site" using WebAssembly for BOM processing.
+
+All processing is done client side in your browser. No submitted BOM data is transmitted elsewhere.
+
+# Self Hosting
+
+The web tool is built as a "static site". Any standard web server should work.
+
+# Supported Browsers
+
+The web tool is supported on the current versions of the following browsers:
+
+- Apple Safari (including on iOS)
+- Google Chrome (including on Android)
+- Microsoft Edge
+- Mozilla Firefox
+
+## License
+
+Permission to modify and redistribute is granted under the terms of the Apache 2.0 license. See the [LICENSE] file for the full license.
+
+[License]: https://github.com/CycloneDX/cyclonedx-web-tool/blob/main/LICENSE
+
+## Contributing
+
+Pull requests are welcome. But please read the
+[CycloneDX contributing guidelines](https://github.com/CycloneDX/.github/blob/master/CONTRIBUTING.md) first.
+
+To build and test the solution locally you should have .NET 5
+installed. Standard commands like `dotnet build` and `dotnet test` work.
