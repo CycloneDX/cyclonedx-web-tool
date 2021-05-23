@@ -23,6 +23,7 @@
             <option value="autodetect" selected="selected">Autodetect</option>
             <option value="json">JSON</option>
             <option value="xml">XML</option>
+            <option value="bin">Protobuf</option>
         </select>
     </label>
     
@@ -31,6 +32,7 @@
         <select id="outputFormat" @bind="_outputFormat">
             <option value="json" selected="selected">JSON</option>
             <option value="xml">XML</option>
+            <option value="bin">Protobuf</option>
         </select>
     </label>
     
@@ -48,7 +50,7 @@
 </form>
 
 @code {
-    private string _inputFileContents;
+    private byte[] _inputFileContents;
     private string _userInputFilename;
     private string _inputFormat = "autodetect";
     private string _outputFormat = "json";
@@ -63,9 +65,10 @@
     {
         if (e.FileCount == 1)
         {
-            using (var sr = new StreamReader(e.File.OpenReadStream()))
+            await using (var ms = new MemoryStream())
             {
-                _inputFileContents = await sr.ReadToEndAsync();
+                await e.File.OpenReadStream().CopyToAsync(ms);
+                _inputFileContents = ms.ToArray();
             }
             _userInputFilename = e.File.Name;
         }
@@ -83,7 +86,7 @@
         {
             try
             {
-                bom = Json.Deserializer.Deserialize(_inputFileContents);
+                bom = Json.Deserializer.Deserialize(Encoding.UTF8.GetString(_inputFileContents));
             }
             catch (Exception e)
             {
@@ -95,7 +98,19 @@
         {
             try
             {
-                bom = Xml.Deserializer.Deserialize(_inputFileContents);
+                bom = Xml.Deserializer.Deserialize(Encoding.UTF8.GetString(_inputFileContents));
+            }
+            catch (Exception e)
+            {
+                await Alert("Error deserializing BOM: " + e.Message);
+                return;
+            }
+        }
+        else if (_inputFormat == "bin" || _inputFormat == "autodetect" && _userInputFilename.EndsWith(".bin"))
+        {
+            try
+            {
+                bom = Protobuf.Deserializer.Deserialize(_inputFileContents);
             }
             catch (Exception e)
             {
@@ -109,14 +124,15 @@
             return;
         }
 
-        string output;
+        byte[] output;
         
         if (_outputFormat == "json")
         {
+            string stringOutput;
             if (_outputVersion == "v1.2")
             {
                 var bom12 = new Models.v1_2.Bom(bom);
-                output = Json.Serializer.Serialize(bom12);
+                stringOutput = Json.Serializer.Serialize(bom12);
             }
             else if (_outputVersion == "v1.1" || _outputVersion == "v1.0")
             {
@@ -125,37 +141,51 @@
             }
             else
             {
-                output = Json.Serializer.Serialize(bom);
+                stringOutput = Json.Serializer.Serialize(bom);
+            }
+            output = Encoding.UTF8.GetBytes(stringOutput);
+        }
+        else if (_outputFormat == "bin")
+        {
+            if (_outputVersion == "v1.2" || _outputVersion == "v1.1" || _outputVersion == "v1.0")
+            {
+                await Alert("Invalid version specified for Protobuf output. Protobuf output is only supported for versions >= 1.3");
+                return;
+            }
+            else
+            {
+                output = Protobuf.Serializer.Serialize(bom);
             }
         }
         else
         {
+            string stringOutput;
             if (_outputVersion == "v1.2")
             {
                 var bom12 = new Models.v1_2.Bom(bom);
-                output = Xml.Serializer.Serialize(bom12);
+                stringOutput = Xml.Serializer.Serialize(bom12);
             }
             else if (_outputVersion == "v1.1")
             {
                 var bom12 = new Models.v1_2.Bom(bom);
                 var bom11 = new Models.v1_1.Bom(bom12);
-                output = Xml.Serializer.Serialize(bom11);
+                stringOutput = Xml.Serializer.Serialize(bom11);
             }
             else if (_outputVersion == "v1.0")
             {
                 var bom12 = new Models.v1_2.Bom(bom);
                 var bom11 = new Models.v1_1.Bom(bom12);
                 var bom10 = new Models.v1_0.Bom(bom11);
-                output = Xml.Serializer.Serialize(bom10);
+                stringOutput = Xml.Serializer.Serialize(bom10);
             }
             else
             {
-                output = Xml.Serializer.Serialize(bom);
+                stringOutput = Xml.Serializer.Serialize(bom);
             }
+            output = Encoding.UTF8.GetBytes(stringOutput);
         }
         
-        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(output);
-        var outputBom64 = System.Convert.ToBase64String(plainTextBytes);
+        var outputBom64 = System.Convert.ToBase64String(output);
         
         await _jsRuntime.InvokeVoidAsync("cdxFileDownload", Path.GetFileNameWithoutExtension(_userInputFilename) + "." + _outputFormat, outputBom64);
     }
