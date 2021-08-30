@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CycloneDX.Core" Version="2.5.1" />
+    <PackageReference Include="CycloneDX.Core" Version="2.5.2" />
     <PackageReference Include="CycloneDX.Utils" Version="2.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.9" PrivateAssets="all" />
