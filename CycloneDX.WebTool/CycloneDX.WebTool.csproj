@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="CycloneDX.Core" Version="3.0.3" />
-    <PackageReference Include="CycloneDX.Utils" Version="3.0.0" />
+    <PackageReference Include="CycloneDX.Utils" Version="3.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.9" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
