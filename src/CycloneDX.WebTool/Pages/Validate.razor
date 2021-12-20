@@ -88,7 +88,7 @@
 
     private async Task ValidateBOM()
     {
-        if (!Enum.TryParse(_inputVersion, out SchemaVersion schemaVersion))
+        if (!Enum.TryParse(_inputVersion, out SpecificationVersion specificationVersion))
         {
             await Alert("Looks like you've hit a bug. This shouldn't happen, but there has been a problem reading the schema version.");
             return;
@@ -100,7 +100,7 @@
         {
             try
             {
-                result = Json.Validator.Validate(_inputFileContents, schemaVersion);
+                result = Json.Validator.Validate(_inputFileContents, specificationVersion);
             }
             catch (Exception e)
             {
@@ -112,7 +112,7 @@
         {
             try
             {
-                result = await Xml.Validator.Validate(_inputFileContents, schemaVersion);
+                result = Xml.Validator.Validate(_inputFileContents, specificationVersion);
             }
             catch (Exception e)
             {
