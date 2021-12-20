@@ -29,6 +29,9 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v2.4.0
+      - uses: actions/setup-dotnet@v1.9.0
+        with:
+          dotnet-version: '6.0'
 
       # Build and package everything
       - name: Package release
@@ -36,10 +39,10 @@ jobs:
         run: |
           VERSION=`cat semver.txt`
           echo "##[set-output name=version;]$VERSION"
-          dotnet publish --configuration Release /p:Version=$VERSION --output ./gh-pages CycloneDX.WebTool/CycloneDX.WebTool.csproj
+          dotnet publish --configuration Release /p:Version=$VERSION --output ./gh-pages src/CycloneDX.WebTool/CycloneDX.WebTool.csproj
           cd gh-pages/wwwroot
-          zip -r ../../CycloneDX.WebTools.zip ./
-          tar -zcvf ../../CycloneDX.WebTools.tar.gz ./
+          zip -r ../../CycloneDX.WebTool.zip ./
+          tar -zcvf ../../CycloneDX.WebTool.tar.gz ./
           cd ../..
 
       - name: Create github release and git tag for release
@@ -59,8 +62,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: CycloneDX.WebTools.zip
-          asset_name: CycloneDX.WebTools.${{ steps.package_release.outputs.version }}.zip
+          asset_path: CycloneDX.WebTool.zip
+          asset_name: CycloneDX.WebTool.${{ steps.package_release.outputs.version }}.zip
           asset_content_type: application/zip
 
       - name: Upload tar.gz package to github release
@@ -69,8 +72,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: CycloneDX.WebTools.tar.gz
-          asset_name: CycloneDX.WebTools.${{ steps.package_release.outputs.version }}.tar.gz
+          asset_path: CycloneDX.WebTool.tar.gz
+          asset_name: CycloneDX.WebTool.${{ steps.package_release.outputs.version }}.tar.gz
           asset_content_type: application/gzip
       
       - name: Update GitHub pages
