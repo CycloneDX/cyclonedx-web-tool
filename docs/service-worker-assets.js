@@ -1,11 +1,19 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-CHE4grEBvY9Yt\/2TS\/Fx45nNCGPCbcT0wlBqCNPJqeQ=",
+      "hash": "sha256-T02\/lTwIV3MJqpT5L\/moEJtVU8ySfGTQSkWDFcKnzg0=",
       "url": "_framework\/CycloneDX.Core.dll"
     },
     {
-      "hash": "sha256-JAt3lXyAyuInhemQFmkM8+mkumgb86m4ojcc4i\/TwUw=",
+      "hash": "sha256-Opqz5l8FgKjJAL8gbawbcp\/k4ZQIPFcuWvx7X7QizgA=",
+      "url": "_framework\/CycloneDX.Spdx.Interop.dll"
+    },
+    {
+      "hash": "sha256-QIk8SfJ0bgo5VNHHbplfDeBrJRdTZCUHc0puGWg9NnA=",
+      "url": "_framework\/CycloneDX.Spdx.dll"
+    },
+    {
+      "hash": "sha256-IVovkwBfhCW6rh5RTYaRmR9+gmGQTXYxjROh+DBFedA=",
       "url": "_framework\/CycloneDX.Utils.dll"
     },
     {
@@ -13,15 +21,15 @@
       "url": "_framework\/JetBrains.Annotations.dll"
     },
     {
-      "hash": "sha256-MnFI7NTYbuubOZJyREa\/LAtS0QGuA0zffNnMSGlrf6g=",
+      "hash": "sha256-75AObM2KZ8zX169gW7VXnm\/EdzJr8qaGDc\/KJSgQ3Is=",
       "url": "_framework\/Json.More.dll"
     },
     {
-      "hash": "sha256-SUFB3Dsfs1cxTJ8pgKfvgJpiW\/tH6iWRkAZQFKyG3cI=",
+      "hash": "sha256-Uw29FSMGqz2HJQK3Ecdt1KWSsBNA2RDhTfcDJdMRVeQ=",
       "url": "_framework\/JsonPointer.Net.dll"
     },
     {
-      "hash": "sha256-DK5PzfTE0ImeDgotwb2v4gkrcGHW6m4MJtrVgQro148=",
+      "hash": "sha256-2KsNSx74ArGEJvUkcxkzdSiJR6hT5A0ttSNf4VIRO4U=",
       "url": "_framework\/JsonSchema.Net.dll"
     },
     {
@@ -821,11 +829,11 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-jBLT91mLCOJrh7ybPt4WeUOMqfkhCMraFHWe4dQpdIE=",
+      "hash": "sha256-h4p7oUosa1w1h8Lrf5wVN3T3enlxolsHG7DH9MDL6lA=",
       "url": "_framework\/blazor.boot.json"
     },
     {
-      "hash": "sha256-9pJHmlsYEQ7H3tZBBhl9eeMIVM8N6kfdldx\/ymvxjcY=",
+      "hash": "sha256-WuLYoPGSx2xl2oi8CJMFPH6pvrGEZ8JrZMaHI6+N98A=",
       "url": "_framework\/CycloneDX.WebTool.dll"
     },
     {
@@ -897,5 +905,5 @@
       "url": "manifest.json"
     }
   ],
-  "version": "jE8vYMTQ"
+  "version": "XTfijS4Q"
 };
