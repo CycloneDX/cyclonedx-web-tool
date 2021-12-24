@@ -9,6 +9,8 @@
 
 A web based tool for working with CycloneDX BOMs.
 
+[The hosted version is available at https://cyclonedx.github.io/cyclonedx-web-tool](https://cyclonedx.github.io/cyclonedx-web-tool).
+
 Supported functionality:
 
 - Converting between different versions and formats
