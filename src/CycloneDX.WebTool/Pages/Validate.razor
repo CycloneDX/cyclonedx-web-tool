@@ -45,7 +45,8 @@
     <label>
         Version
         <select id="inputVersion" @bind="_inputVersion">
-            <option value="v1_3" selected="selected">v1.3</option>
+            <option value="v1_4" selected="selected">v1.4</option>
+            <option value="v1_3">v1.3</option>
             <option value="v1_2">v1.2</option>
             <option value="v1_1">v1.1</option>
             <option value="v1_0">v1.0</option>
@@ -61,7 +62,7 @@
     private string _inputFileContents;
     private string _userInputFilename;
     private string _inputFormat = "autodetect";
-    private string _inputVersion = "v1_3";
+    private string _inputVersion = "v1_4";
     private string _validationMessage = "";
 
     private async Task Alert(string message)
