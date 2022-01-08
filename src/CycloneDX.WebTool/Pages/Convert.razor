@@ -60,7 +60,8 @@
     <label>
         Version (ignored for SPDX output)
         <select id="outputVersion" @bind="_outputVersion">
-            <option value="v1.3" selected="selected">v1.3</option>
+            <option value="v1.4" selected="selected">v1.4</option>
+            <option value="v1.3">v1.3</option>
             <option value="v1.2">v1.2</option>
             <option value="v1.1">v1.1</option>
             <option value="v1.0">v1.0</option>
@@ -102,7 +103,13 @@
 
     private async Task ConvertBOM()
     {
-        Models.v1_3.Bom bom;
+        if (!Enum.TryParse(_outputVersion, out SpecificationVersion specificationVersion))
+        {
+            await Alert("Looks like you've hit a bug. This shouldn't happen, but there has been a problem reading the schema version.");
+            return;
+        }
+
+        Models.Bom bom;
         if (_inputFormat == "spdxjson" || _inputFormat == "autodetect" && _userInputFilename.EndsWith(".spdx.json"))
         {
             try
@@ -120,7 +127,7 @@
         {
             try
             {
-                bom = Json.Deserializer.Deserialize(Encoding.UTF8.GetString(_inputFileContents));
+                bom = Json.Serializer.Deserialize(Encoding.UTF8.GetString(_inputFileContents));
             }
             catch (Exception e)
             {
@@ -132,7 +139,7 @@
         {
             try
             {
-                bom = Xml.Deserializer.Deserialize(Encoding.UTF8.GetString(_inputFileContents));
+                bom = Xml.Serializer.Deserialize(Encoding.UTF8.GetString(_inputFileContents));
             }
             catch (Exception e)
             {
@@ -144,7 +151,7 @@
         {
             try
             {
-                bom = Protobuf.Deserializer.Deserialize(_inputFileContents);
+                bom = Protobuf.Serializer.Deserialize(_inputFileContents);
             }
             catch (Exception e)
             {
@@ -159,6 +166,8 @@
         }
 
         byte[] output;
+
+        bom.SpecVersion = specificationVersion;
         
         if (_outputFormat == "spdxjson")
         {
@@ -168,26 +177,20 @@
         }
         else if (_outputFormat == "json")
         {
-            string stringOutput;
-            if (_outputVersion == "v1.2")
-            {
-                var bom12 = new Models.v1_2.Bom(bom);
-                stringOutput = Json.Serializer.Serialize(bom12);
-            }
-            else if (_outputVersion == "v1.1" || _outputVersion == "v1.0")
+            if (bom.SpecVersion < SpecificationVersion.v1_2)
             {
                 await Alert("Invalid version specified for JSON output. JSON output is only supported for versions >= 1.2");
                 return;
             }
             else
             {
-                stringOutput = Json.Serializer.Serialize(bom);
+                var stringOutput = Json.Serializer.Serialize(bom);
+                output = Encoding.UTF8.GetBytes(stringOutput);
             }
-            output = Encoding.UTF8.GetBytes(stringOutput);
         }
         else if (_outputFormat == "bin")
         {
-            if (_outputVersion == "v1.2" || _outputVersion == "v1.1" || _outputVersion == "v1.0")
+            if (bom.SpecVersion < SpecificationVersion.v1_3)
             {
                 await Alert("Invalid version specified for Protobuf output. Protobuf output is only supported for versions >= 1.3");
                 return;
@@ -199,29 +202,7 @@
         }
         else
         {
-            string stringOutput;
-            if (_outputVersion == "v1.2")
-            {
-                var bom12 = new Models.v1_2.Bom(bom);
-                stringOutput = Xml.Serializer.Serialize(bom12);
-            }
-            else if (_outputVersion == "v1.1")
-            {
-                var bom12 = new Models.v1_2.Bom(bom);
-                var bom11 = new Models.v1_1.Bom(bom12);
-                stringOutput = Xml.Serializer.Serialize(bom11);
-            }
-            else if (_outputVersion == "v1.0")
-            {
-                var bom12 = new Models.v1_2.Bom(bom);
-                var bom11 = new Models.v1_1.Bom(bom12);
-                var bom10 = new Models.v1_0.Bom(bom11);
-                stringOutput = Xml.Serializer.Serialize(bom10);
-            }
-            else
-            {
-                stringOutput = Xml.Serializer.Serialize(bom);
-            }
+            var stringOutput = Xml.Serializer.Serialize(bom);
             output = Encoding.UTF8.GetBytes(stringOutput);
         }
         
