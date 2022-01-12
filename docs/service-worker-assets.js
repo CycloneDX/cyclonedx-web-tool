@@ -1,19 +1,19 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-T02\/lTwIV3MJqpT5L\/moEJtVU8ySfGTQSkWDFcKnzg0=",
+      "hash": "sha256-fZJNbiubmbd1slIqwcRylkB0aTDq74kqwyiqlBaDa1A=",
       "url": "_framework\/CycloneDX.Core.dll"
     },
     {
-      "hash": "sha256-Opqz5l8FgKjJAL8gbawbcp\/k4ZQIPFcuWvx7X7QizgA=",
+      "hash": "sha256-20k0SEBWuhd\/h27BR0weU4gpcHdzz9Zv3UpWFyd3S10=",
       "url": "_framework\/CycloneDX.Spdx.Interop.dll"
     },
     {
-      "hash": "sha256-QIk8SfJ0bgo5VNHHbplfDeBrJRdTZCUHc0puGWg9NnA=",
+      "hash": "sha256-F0zoM52i61fZGk2s1EmXco7LhWO5r64hcWqorLUOdoQ=",
       "url": "_framework\/CycloneDX.Spdx.dll"
     },
     {
-      "hash": "sha256-IVovkwBfhCW6rh5RTYaRmR9+gmGQTXYxjROh+DBFedA=",
+      "hash": "sha256-j6P1bjU3aFqB9EEBeQThAJMQielPFi3ElKGPGZuENAk=",
       "url": "_framework\/CycloneDX.Utils.dll"
     },
     {
@@ -829,11 +829,11 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-h4p7oUosa1w1h8Lrf5wVN3T3enlxolsHG7DH9MDL6lA=",
+      "hash": "sha256-PVFnc4u9YLmrIr9fei0lAI266QFQ0R5bxoumTBlnvzQ=",
       "url": "_framework\/blazor.boot.json"
     },
     {
-      "hash": "sha256-WuLYoPGSx2xl2oi8CJMFPH6pvrGEZ8JrZMaHI6+N98A=",
+      "hash": "sha256-4xdlBO5gFwpa6DMnfWBLKUFhBpcNuzO2jm2zR2NXgKY=",
       "url": "_framework\/CycloneDX.WebTool.dll"
     },
     {
@@ -905,5 +905,5 @@
       "url": "manifest.json"
     }
   ],
-  "version": "XTfijS4Q"
+  "version": "C0B03816"
 };

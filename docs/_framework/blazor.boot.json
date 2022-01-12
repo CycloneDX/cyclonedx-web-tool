@@ -7,11 +7,11 @@
   "linkerEnabled": false,
   "resources": {
     "assembly": {
-      "CycloneDX.Core.dll": "sha256-T02\/lTwIV3MJqpT5L\/moEJtVU8ySfGTQSkWDFcKnzg0=",
-      "CycloneDX.Spdx.dll": "sha256-QIk8SfJ0bgo5VNHHbplfDeBrJRdTZCUHc0puGWg9NnA=",
-      "CycloneDX.Spdx.Interop.dll": "sha256-Opqz5l8FgKjJAL8gbawbcp\/k4ZQIPFcuWvx7X7QizgA=",
-      "CycloneDX.Utils.dll": "sha256-IVovkwBfhCW6rh5RTYaRmR9+gmGQTXYxjROh+DBFedA=",
-      "CycloneDX.WebTool.dll": "sha256-WuLYoPGSx2xl2oi8CJMFPH6pvrGEZ8JrZMaHI6+N98A=",
+      "CycloneDX.Core.dll": "sha256-fZJNbiubmbd1slIqwcRylkB0aTDq74kqwyiqlBaDa1A=",
+      "CycloneDX.Spdx.dll": "sha256-F0zoM52i61fZGk2s1EmXco7LhWO5r64hcWqorLUOdoQ=",
+      "CycloneDX.Spdx.Interop.dll": "sha256-20k0SEBWuhd\/h27BR0weU4gpcHdzz9Zv3UpWFyd3S10=",
+      "CycloneDX.Utils.dll": "sha256-j6P1bjU3aFqB9EEBeQThAJMQielPFi3ElKGPGZuENAk=",
+      "CycloneDX.WebTool.dll": "sha256-4xdlBO5gFwpa6DMnfWBLKUFhBpcNuzO2jm2zR2NXgKY=",
       "JetBrains.Annotations.dll": "sha256-fAnbbyWf2qOMqEIgS28noiDty6Bz2ByzJXWDkYFpJn8=",
       "Json.More.dll": "sha256-75AObM2KZ8zX169gW7VXnm\/EdzJr8qaGDc\/KJSgQ3Is=",
       "JsonPointer.Net.dll": "sha256-Uw29FSMGqz2HJQK3Ecdt1KWSsBNA2RDhTfcDJdMRVeQ=",
