@@ -31,7 +31,7 @@ jobs:
       release-version: ${{ steps.package_release.outputs.version }}
     steps:
       - uses: actions/checkout@v3.0.2
-      - uses: actions/setup-dotnet@v1.9.0
+      - uses: actions/setup-dotnet@v2.1.0
         with:
           dotnet-version: '6.0'
 
