@@ -74,7 +74,7 @@
     {
         if (e.FileCount == 1)
         {
-            using (var sr = new StreamReader(e.File.OpenReadStream()))
+            using (var sr = new StreamReader(e.File.OpenReadStream(102400000)))
             {
                 _inputFileContents = await sr.ReadToEndAsync();
             }
