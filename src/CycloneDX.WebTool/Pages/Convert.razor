@@ -89,7 +89,7 @@
         {
             await using (var ms = new MemoryStream())
             {
-                await e.File.OpenReadStream().CopyToAsync(ms);
+                await e.File.OpenReadStream(102400000).CopyToAsync(ms);
                 _inputFileContents = ms.ToArray();
             }
             _userInputFilename = e.File.Name;
