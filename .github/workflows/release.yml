@@ -27,8 +27,10 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    outputs:
+      release-version: ${{ steps.package_release.outputs.version }}
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3.0.2
       - uses: actions/setup-dotnet@v1.9.0
         with:
           dotnet-version: '6.0'
@@ -88,3 +90,36 @@ jobs:
           git add docs
           git commit -m "Update GitHub pages" || true
           git push https://${{ github.actor }}:${{ github.token }}@github.com/${{ github.repository }}.git HEAD:gh-pages
+
+  docker:
+    name: docker
+    runs-on: ubuntu-latest
+    needs:
+      - release
+    env:
+      IMAGE_NAME: ${{ github.repository }}
+      IMAGE_VERSION: ${{ needs.release.outputs.release-version }}
+
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v3.0.2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build image and push
+        uses: docker/build-push-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
+          push: true
+          build-args:
+            VERSION=${{ env.IMAGE_VERSION }}
+          tags: |
+            cyclonedx/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+            cyclonedx/${{ env.IMAGE_NAME }}:latest
