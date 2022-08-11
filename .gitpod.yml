@@ -1,0 +1,10 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Restore dependencies
+    init: |
+      dotnet restore
+vscode:
+  extensions:
+    - muhammad-sammy.csharp
