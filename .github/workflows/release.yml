@@ -97,7 +97,7 @@ jobs:
     needs:
       - release
     env:
-      IMAGE_NAME: ${{ github.repository }}
+      IMAGE_NAME: cyclonedx-web-tool
       IMAGE_VERSION: ${{ needs.release.outputs.release-version }}
 
     timeout-minutes: 5
