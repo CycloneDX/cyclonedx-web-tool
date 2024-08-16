@@ -32,7 +32,7 @@
         File
         <InputFile id="inputFile" OnChange="@LoadInputFile"></InputFile>
     </label>
-    
+
     <label>
         Format
         <select id="inputFormat" @bind="_inputFormat">
@@ -41,11 +41,12 @@
             <option value="xml">XML</option>
         </select>
     </label>
-    
+
     <label>
         Version
         <select id="inputVersion" @bind="_inputVersion">
-            <option value="v1_5" selected="selected">v1.5</option>
+            <option value="v1_6" selected="selected">v1.6</option>
+            <option value="v1_5">v1.5</option>
             <option value="v1_4">v1.4</option>
             <option value="v1_3">v1.3</option>
             <option value="v1_2">v1.2</option>
@@ -53,7 +54,7 @@
             <option value="v1_0">v1.0</option>
         </select>
     </label>
-    
+
     <button id="Validate" type="button" @onclick="@ValidateBOM" hidden="@(_inputFileContents == null)">Validate</button>
 </form>
 
@@ -63,7 +64,7 @@
     private string _inputFileContents;
     private string _userInputFilename;
     private string _inputFormat = "autodetect";
-    private string _inputVersion = "v1_5";
+    private string _inputVersion = "v1_6";
     private string _validationMessage = "";
 
     private async Task Alert(string message)
