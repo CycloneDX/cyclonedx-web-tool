@@ -32,7 +32,7 @@
         File
         <InputFile id="inputFile" OnChange="@LoadInputFile"></InputFile>
     </label>
-
+    
     <label>
         Format
         <select id="inputFormat" @bind="_inputFormat">
@@ -41,7 +41,7 @@
             <option value="xml">XML</option>
         </select>
     </label>
-
+    
     <label>
         Version
         <select id="inputVersion" @bind="_inputVersion">
@@ -54,7 +54,7 @@
             <option value="v1_0">v1.0</option>
         </select>
     </label>
-
+    
     <button id="Validate" type="button" @onclick="@ValidateBOM" hidden="@(_inputFileContents == null)">Validate</button>
 </form>
 

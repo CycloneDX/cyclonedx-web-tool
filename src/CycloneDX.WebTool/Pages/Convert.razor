@@ -35,7 +35,7 @@
         Input File
         <InputFile id="inputFile" OnChange="@LoadInputFile"></InputFile>
     </label>
-
+    
     <label>
         Input Format
         <select id="inputFormat" @bind="_inputFormat">
@@ -46,7 +46,7 @@
             <option value="spdxjson">SPDX JSON</option>
         </select>
     </label>
-
+    
     <label>
         Output Format
         <select id="outputFormat" @bind="_outputFormat">
@@ -56,7 +56,7 @@
             <option value="spdxjson">SPDX JSON</option>
         </select>
     </label>
-
+    
     <label>
         Version (ignored for SPDX output)
         <select id="outputVersion" @bind="_outputVersion">
@@ -69,7 +69,7 @@
             <option value="v1_0">v1.0</option>
         </select>
     </label>
-
+    
     <button id="convert" type="button" @onclick="@ConvertBOM" hidden="@(_inputFileContents == null)">Convert & Download</button>
 </form>
 
@@ -170,7 +170,7 @@
         byte[] output;
 
         bom.SpecVersion = specificationVersion;
-
+        
         if (_outputFormat == "spdxjson")
         {
             var spdxDoc = bom.ToSpdx();
@@ -207,9 +207,9 @@
             var stringOutput = Xml.Serializer.Serialize(bom);
             output = Encoding.UTF8.GetBytes(stringOutput);
         }
-
+        
         var outputBom64 = System.Convert.ToBase64String(output);
-
+        
         var fileExtension = _outputFormat == "spdxjson" ? "spdx.json": _outputFormat;
         await _jsRuntime.InvokeVoidAsync("cdxFileDownload", Path.GetFileNameWithoutExtension(_userInputFilename) + "." + fileExtension, outputBom64);
     }
