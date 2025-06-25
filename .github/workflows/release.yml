@@ -22,9 +22,14 @@ name: Release
 on:
   workflow_dispatch
 
+# see https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
+permissions: {}
+
 jobs:
   release:
     name: Release
+    permissions:
+      contents: write  # for creating GH releases and uploading assets to it
     runs-on: ubuntu-latest
     timeout-minutes: 30
     outputs:
