@@ -829,11 +829,11 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-Rq1haFXpeq4V+dGDZ3wpn\/yicxAx5cVhW7pAxwAvp5I=",
+      "hash": "sha256-dzv6CUlmpH1vXKk4KDtmMKEzjxbckddWlX53wXFXuUw=",
       "url": "_framework\/blazor.boot.json"
     },
     {
-      "hash": "sha256-nc+F7+zSvbC84A2KEO52jo+oMaAN4Wh8GPZzusbceGI=",
+      "hash": "sha256-jM2Ng6oYCh0PyDMELKMj8CBylqUjmc\/UH6ONNQ3INDg=",
       "url": "_framework\/CycloneDX.WebTool.dll"
     },
     {
@@ -905,5 +905,5 @@
       "url": "manifest.json"
     }
   ],
-  "version": "P24pUvnJ"
+  "version": "a5hK0LJG"
 };
