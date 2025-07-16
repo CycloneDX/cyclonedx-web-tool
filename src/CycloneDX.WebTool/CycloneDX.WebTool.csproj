@@ -10,10 +10,12 @@
     <PackageReference Include="CycloneDX.Utils" Version="10.0.0" />
     <PackageReference Include="CycloneDX.Spdx.Interop" Version="10.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.18" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.18" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.7" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
+
+    <PackageReference Include="Microsoft.NET.Sdk.WebAssembly.Pack" Version="9.0.7" />
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
