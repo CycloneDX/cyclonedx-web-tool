@@ -10,7 +10,7 @@
     <PackageReference Include="CycloneDX.Utils" Version="10.0.0" />
     <PackageReference Include="CycloneDX.Spdx.Interop" Version="10.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.18" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.18" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.8" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
